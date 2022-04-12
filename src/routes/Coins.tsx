@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Coin from "./Coin";
 
 const Coins = () => {
   const Container = styled.div`
@@ -28,14 +27,6 @@ const Coins = () => {
     padding: 1rem 2rem;
     border-radius: 15px;
   `;
-
-  //   interface ICoin {
-  //       id: string,
-  //       name: string,
-  //       symbol: string,
-  //       rank: number,
-  //       type: string
-  //   }
 
   const coins = [
     {

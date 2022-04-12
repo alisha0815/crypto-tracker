@@ -60,6 +60,13 @@ table {
 a {
   text-decoration: none;
   color: inherit;
+  display: block;
+  transition: all 0.2s ease-in;
+  padding: 20px;
+  &:hover {
+    color: ${(props) => props.theme.heighlightColor};
+    /* transform: scale(1.05); */
+  }
 }
 `;
 function App() {
