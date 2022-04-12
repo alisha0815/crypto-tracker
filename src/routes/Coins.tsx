@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Coin from "./Coin";
 
@@ -74,8 +75,8 @@ const Coins = () => {
       </Header>
 
       {coins.map((coin) => (
-        <CoinItem>
-          <Coin key={coin.id} name={coin.name} />
+        <CoinItem key={coin.id}>
+          <Link to={`/${coin.id}`}>{coin.name}&#10142;</Link>
         </CoinItem>
       ))}
     </Container>

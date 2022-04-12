@@ -6,14 +6,11 @@ interface ICoin {
   id?: string;
 }
 const Coin: React.FC<ICoin> = ({ name, id }: ICoin) => {
-  // const { coinId } = useParams();
+  const { coinId } = useParams();
 
   return (
     <div>
-      <h3>
-        Coin: {name}
-        &#10142;
-      </h3>
+      <h3>Coin: {coinId}</h3>
     </div>
   );
 };
