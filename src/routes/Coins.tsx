@@ -3,13 +3,30 @@ import styled from "styled-components";
 import Coin from "./Coin";
 
 const Coins = () => {
-  const Container = styled.div``;
-  const Header = styled.header``;
+  const Container = styled.div`
+    margin: 1rem 2rem;
+  `;
+  const Header = styled.header`
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
 
   const Title = styled.div`
     color: ${(props) => props.theme.accentColor};
+    h2 {
+      font-size: 2em;
+    }
   `;
-  const CoinList = styled.li``;
+  const CoinItem = styled.li`
+    background-color: ${(props) => props.theme.textColor};
+    color: ${(props) => props.theme.bgColor};
+    font-size: 1.2em;
+    margin-bottom: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+  `;
 
   //   interface ICoin {
   //       id: string,
@@ -55,11 +72,12 @@ const Coins = () => {
           <h2>Coins</h2>
         </Title>
       </Header>
-      <CoinList>
-        {coins.map((coin) => (
+
+      {coins.map((coin) => (
+        <CoinItem>
           <Coin key={coin.id} name={coin.name} />
-        ))}
-      </CoinList>
+        </CoinItem>
+      ))}
     </Container>
   );
 };

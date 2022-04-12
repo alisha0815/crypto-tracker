@@ -10,7 +10,10 @@ const Coin: React.FC<ICoin> = ({ name, id }: ICoin) => {
 
   return (
     <div>
-      <h3>Coin: {name}</h3>
+      <h3>
+        Coin: {name}
+        &#10142;
+      </h3>
     </div>
   );
 };
