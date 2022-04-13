@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 import { ICoin } from "../Interface/CoinInterface";
 
 const Coins = () => {
@@ -42,7 +43,7 @@ const Coins = () => {
     try {
       // const res = await fetch(apiURL);
       const coins = await fetch(apiURL).then((res) => res.json());
-      setCoins(coins);
+      setCoins(coins.slice(0, 100));
       setIsLoading(false);
     } catch (error) {
       console.error(error);
@@ -70,13 +71,15 @@ const Coins = () => {
         </Title>
       </Header>
       <CoinWrapper>
-        {isLoading
-          ? "Loading...."
-          : coins.map((coin) => (
-              <CoinItem key={coin.id}>
-                <Link to={`/${coin.id}`}>{coin.name}&#10142;</Link>
-              </CoinItem>
-            ))}
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          coins.map((coin) => (
+            <CoinItem key={coin.id}>
+              <Link to={`/${coin.id}`}>{coin.name}&#10142;</Link>
+            </CoinItem>
+          ))
+        )}
       </CoinWrapper>
     </Container>
   );
