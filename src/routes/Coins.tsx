@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -28,35 +28,34 @@ const Coins = () => {
     border-radius: 15px;
   `;
 
-  const coins = [
-    {
-      id: "btc-bitcoin",
-      name: "Bitcoin",
-      symbol: "BTC",
-      rank: 1,
-      is_new: false,
-      is_active: true,
-      type: "coin",
-    },
-    {
-      id: "eth-ethereum",
-      name: "Ethereum",
-      symbol: "ETH",
-      rank: 2,
-      is_new: false,
-      is_active: true,
-      type: "coin",
-    },
-    {
-      id: "hex-hex",
-      name: "HEX",
-      symbol: "HEX",
-      rank: 3,
-      is_new: false,
-      is_active: true,
-      type: "token",
-    },
-  ];
+  const CoinWrapper = styled.div`
+    max-width: 500px;
+    margin: 0 auto;
+  `;
+
+  interface ICoin {
+    id: string;
+    is_active: boolean;
+    is_new: boolean;
+    name: string;
+    rank: number;
+    symbol: string;
+    type: string;
+  }
+
+  const apiURL = "https://api.coinpaprika.com/v1/coins";
+  const [coins, setCoins] = useState<ICoin[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const resp = await fetch(apiURL);
+      const coins = await resp.json();
+      console.log(coins.slice(0, 100));
+      setCoins(coins.slice(0, 100));
+    })();
+  }, []);
+
+  console.log(coins);
   return (
     <Container>
       <Header>
@@ -64,12 +63,13 @@ const Coins = () => {
           <h2>Coins</h2>
         </Title>
       </Header>
-
-      {coins.map((coin) => (
-        <CoinItem key={coin.id}>
-          <Link to={`/${coin.id}`}>{coin.name}&#10142;</Link>
-        </CoinItem>
-      ))}
+      <CoinWrapper>
+        {coins.map((coin) => (
+          <CoinItem key={coin.id}>
+            <Link to={`/${coin.id}`}>{coin.name}&#10142;</Link>
+          </CoinItem>
+        ))}
+      </CoinWrapper>
     </Container>
   );
 };
