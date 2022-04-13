@@ -40,8 +40,8 @@ const Coins = () => {
 
   const fetchCoins = async () => {
     try {
-      const res = await fetch(apiURL);
-      const coins = await res.json();
+      // const res = await fetch(apiURL);
+      const coins = await fetch(apiURL).then((res) => res.json());
       setCoins(coins);
       setIsLoading(false);
     } catch (error) {
