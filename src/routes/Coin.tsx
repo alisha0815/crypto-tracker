@@ -1,33 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ICoin } from "../Interface/CoinInterface";
 
-// interface ICoin {
-//   name?: string;
-//   id?: string;
-// }
 const Coin = () => {
   const { coinId } = useParams();
+  const [coinInfo, setCoinInfo] = useState({});
   const baseUrl = `https://api.coinpaprika.com/v1/coins/${coinId}`;
+  const priceUrl = `https://api.coinpaprika.com/v1/tickers/${coinId}`;
+  //api.coinpaprika.com/v1/tickers/btc-bitcoin
 
-  console.log("coinId", coinId);
   console.log("url", baseUrl);
 
   const fetchCoin = async () => {
-    const res = await (await fetch(baseUrl)).json();
-    // const json = await response.json();
-    console.log("json", res);
+    return await (await fetch(baseUrl)).json();
   };
 
+  const fetchPrice = async () => {
+    return await (await fetch(priceUrl)).json();
+  };
   console.log("fetch coin", fetchCoin());
 
-  // useEffect(() => {
-  //   const coin = await fetch(baseUrl);
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      const coin = await fetchCoin();
+      setCoinInfo(coin);
+      const price = await fetchPrice();
+      console.log("price info", price);
+      console.log("coin info", coin);
+    })();
+  }, []);
 
   return (
     <div>
       <h3>Coin: {coinId}</h3>
+      <ul>
+        <li>{coinInfo.name}</li>
+      </ul>
     </div>
   );
 };
